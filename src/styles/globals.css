@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+.register,
+.main {
+  background-image: url(../../public/images/banner.jpg);
+}
+.left_register {
+  background-image: url(../../public/images/content.jpg);
+}
+.left_login {
+  background-image: url(../../public/images/unsplash_HI6gy-p-WBI.png);
+  background-size: 100% 100%;
+  background-repeat: repeat-x;
+  background-position: center;
+  background-color: rgba(140, 20, 252, 0);
+}

@@ -9,6 +9,7 @@ import instagram from "../../../public/images/image 3.png";
 import Input from "@/components/Input";
 import ItemLink from "@/components/ItemLink";
 import { Images } from "../login";
+import Link from "next/link";
 
 export const IformInput = [
   { type: "text", placeholder: "First Name" },
@@ -56,7 +57,7 @@ const Register = () => {
               <div className="font-thin text-lg w-full text-center text-white">
                 Had a account ?
                 <span className="text-pink-400">
-                  <a href="/login"> Login</a>
+                  <Link href="/login"> Login</Link>
                 </span>
               </div>
               <ul className="h-1/2 mx-auto flex justify-around gap-4">

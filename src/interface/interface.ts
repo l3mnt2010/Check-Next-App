@@ -66,3 +66,7 @@ export interface Login {
   email: string;
   password: string;
 }
+export interface Add {
+  name: string;
+  job: string;
+}

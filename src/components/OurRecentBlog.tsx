@@ -2,6 +2,7 @@ import BlogPost from "../components/BlogPost";
 import img1 from "../assets/images/Image (1).png";
 import img2 from "../assets/images/Image (2).png";
 import img3 from "../assets/images/Images.png";
+import React from "react";
 
 const about =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra nunc ante velit vitae. Est tellus vitae.";
@@ -39,4 +40,4 @@ const OurRecentBlog = () => {
   );
 };
 
-export default OurRecentBlog;
+export default React.memo(OurRecentBlog);

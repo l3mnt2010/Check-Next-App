@@ -1,5 +1,7 @@
 import { StaticImageData } from "next/image";
 import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 interface Blog {
   img: StaticImageData;
   title: string;
@@ -19,14 +21,15 @@ const BlogPost: React.FC<Blog> = (props) => {
       </h1>
       <p className="w-full text-left sm:text-center pl-1">{props.text}</p>
 
-      <a
+      <Link
+        href={"/blog/blog_light"}
         className="w-full text-left sm:text-center text-xl underline text-cyan-600 pl-1"
         onClick={() => {}}
       >
         READ MORE
-      </a>
+      </Link>
     </div>
   );
 };
 
-export default BlogPost;
+export default React.memo(BlogPost);

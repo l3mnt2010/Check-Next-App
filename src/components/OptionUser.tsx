@@ -4,6 +4,10 @@ import { RootState } from "@/redux/store";
 import { useSelector, connect, useDispatch } from "react-redux";
 import Image from "next/image";
 import handler from "../pages/api/hello";
+import { showToastMessage } from "@/pages/dasboard";
+import { ToastContainer } from "react-toastify";
+import React from "react";
+import Link from "next/link";
 interface Menus {
   onBolds: () => void;
   onCloses: () => void;
@@ -36,19 +40,24 @@ const OptionUser: React.FC<Menus> = (props) => {
       <div className="font-sans text-sm hover:underline transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 mr-3">
         Help
       </div>
-      <div className="font-sans text-sm hover:underline transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 mr-3">
-        Update
-      </div>
+      <Link
+        href={"/admin"}
+        className="font-sans text-sm hover:underline transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 mr-3"
+      >
+        Admin
+      </Link>
       <div
         className="font-sans text-sm hover:underline transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 mr-3"
         onClick={() => {
           handlerLogOut();
+          showToastMessage();
           onCloses();
         }}
       >
         LOG OUT ##
       </div>
+      <ToastContainer />
     </div>
   );
 };
-export default OptionUser;
+export default React.memo(OptionUser);

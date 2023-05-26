@@ -84,4 +84,4 @@ const DeleteModal: React.FC<OnDelete> = (props) => {
   );
 };
 
-export default DeleteModal;
+export default React.memo(DeleteModal);

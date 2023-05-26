@@ -41,4 +41,4 @@ const TeamMember: React.FC<Team> = (props) => {
   );
 };
 
-export default TeamMember;
+export default React.memo(TeamMember);

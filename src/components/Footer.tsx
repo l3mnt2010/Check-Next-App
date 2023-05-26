@@ -2,6 +2,7 @@ import { logo } from "../components/TeamMember";
 import line from "../assets/images/Line 4.png";
 import copyright from "../assets/images/copyright-line.png";
 import Image from "next/image";
+import React from "react";
 const Footer = () => {
   return (
     <div className="w-full bg-BG_Footer text-white pb-10">
@@ -57,7 +58,7 @@ const Footer = () => {
           />
         </div>
       </div>
-      <div className="w-5/6 mx-auto md:w-2/6 mx-auto flex gap-10">
+      <div className="w-5/6 mx-auto md:w-2/6 flex gap-10">
         <Image src={copyright} width={16} height={10} alt="" />
         <p className=" font-bold ">
           Copyright 2023 By Lam TN .Ojjomedia. All Right Reserved.
@@ -67,4 +68,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);

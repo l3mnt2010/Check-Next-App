@@ -14,4 +14,4 @@ const ItemLink: React.FC<GetItem> = (props) => {
   );
 };
 
-export default ItemLink;
+export default React.memo(ItemLink);

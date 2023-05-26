@@ -25,6 +25,7 @@
 }
 .left_register {
   background-image: url(../../public/images/content.jpg);
+  background-size: contain;
 }
 .left_login {
   background-image: url(../../public/images/unsplash_HI6gy-p-WBI.png);

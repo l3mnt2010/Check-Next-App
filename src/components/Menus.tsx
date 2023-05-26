@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Menu from "../components/Menu";
 import { logo } from "../components/TeamMember";
 import mail_fill from "../../public/images/image 2.png";
@@ -9,17 +9,13 @@ import Image from "next/image";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import OptionUser from "./OptionUser";
+import Link from "next/link";
 
 const Menus = () => {
   const [native, setNative] = useState(true);
   const [bold, isBold] = useState(false);
   const [nativeOption, setNativeOption] = useState(true);
-  const [bolds, isBolded] = useState(false);
   const Login = useSelector((state: RootState) => state.information);
-
-  const naVigate = () => {
-    isBold(true);
-  };
 
   const isBolds = () => {
     isBold(false);
@@ -55,15 +51,19 @@ const Menus = () => {
           className="w-9 pl-2 py-1 hover:animate-spin-slow"
           onClick={() => setNative(!native)}
         />
-        <h1
+        <Link
+          href={"/"}
           className="hidden sm:block sm:font-bold hover:underline"
           onClick={() => {}}
         >
-          About
-        </h1>
-        <h1 className="hidden sm:block sm:font-bold hover:underline">
+          Home
+        </Link>
+        <Link
+          href={"#"}
+          className="hidden sm:block sm:font-bold hover:underline"
+        >
           Features
-        </h1>
+        </Link>
         {!native && (
           <Menu
             onClose={() => setNative(true)}
@@ -72,19 +72,22 @@ const Menus = () => {
           />
         )}
         <Image alt="" className="w-24 ml-3" src={logos} />
-        <h1 className="hidden sm:block sm:font-bold hover:underline">
+        <Link
+          href={"#"}
+          className="hidden sm:block sm:font-bold hover:underline"
+        >
           Screenshot
-        </h1>
-        <h1
+        </Link>
+        <Link
+          href={"/blog"}
           className={
             !bold
               ? "hidden sm:block sm:font-bold hover:underline"
               : "hidden sm:block sm:font-bold underline text-xl"
           }
-          onClick={naVigate}
         >
           Blog
-        </h1>
+        </Link>
         {Login.email === "" && Login.password === "" ? (
           <div className=" w-auto font-bold text-white h-full rounded-lg px-1 py-1 my-2 bg-blue ring-inherit transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 mr-3">
             DownLoad
@@ -114,4 +117,4 @@ const Menus = () => {
   );
 };
 
-export default Menus;
+export default React.memo(Menus);

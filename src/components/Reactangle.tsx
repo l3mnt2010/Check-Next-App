@@ -1,4 +1,5 @@
 import Image, { StaticImageData } from "next/image";
+import React from "react";
 
 interface Reactangles {
   img: StaticImageData;
@@ -16,4 +17,4 @@ const Reactangle: React.FC<Reactangles> = (props) => {
   );
 };
 
-export default Reactangle;
+export default React.memo(Reactangle);

@@ -18,7 +18,7 @@ const Futures: React.FC<Features> = (props) => {
     </div>
   );
 };
-export default Futures;
+export default React.memo(Futures);
 
 export const Future: React.FC<Features> = (props) => {
   return (

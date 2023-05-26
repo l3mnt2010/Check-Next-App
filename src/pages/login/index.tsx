@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Spin } from "antd";
 
@@ -16,6 +16,8 @@ import pass_hidden from "../../../public/images/pass hidden.png";
 import pass_show from "../../../public/images/show-pass.jpg";
 
 import ItemLink from "@/components/ItemLink";
+import { ToastContainer } from "react-toastify";
+import { showToastMessage, showToastMessageFailed } from "../dasboard";
 
 interface User {
   email: string;
@@ -23,13 +25,14 @@ interface User {
 }
 export const IformInput = [{ type: "email", placeholder: "mail@example.com" }];
 export const Images = [facebook, youtube, twitter, instagram];
-const Register = () => {
+const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const isLogin = useSelector((state: RootState) => state.isLogin);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const isLogin = useSelector((state: RootState) => state.isLogin);
+
   const {
     register,
     handleSubmit,
@@ -37,20 +40,32 @@ const Register = () => {
     setValue,
     formState: { errors },
   } = useForm<User>({});
-  console.log(isLogin);
-  const onSubmit: SubmitHandler<User> = (data) => {
-    setIsLoading(true);
-    dispatch(LoginByEmail(data));
 
-    if (isLogin === true) {
+  const onSubmit: SubmitHandler<User> = async (data) => {
+    setIsLoading(true);
+    await dispatch(LoginByEmail(data));
+
+    if (isLogin == true) {
       setIsLoading(false);
+      showToastMessage();
       router.push("/");
+    } else {
+      setTimeout(() => {
+        if (isLogin == false) {
+          setIsLoading(false);
+          showToastMessageFailed();
+          setPassword("");
+        }
+      }, 5000);
     }
   };
 
-  const handleChange = useCallback((event: { target: { value: any } }) => {
+  const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   }, []);
+  useEffect(() => {
+    setValue("password", password);
+  }, [password, setValue]);
 
   // const handleLogin = async (data: User) => {
   //   let res  = await loginApi(data.email, data.password).then((res) => {
@@ -101,13 +116,11 @@ const Register = () => {
                   defaultValue={"cityslicka"}
                   placeholder="cityslicka"
                   {...register("password", {
-                    onChange(event) {
-                      handleChange(event);
-                    },
                     required: true,
                     minLength: 5,
                     maxLength: 20,
                   })}
+                  onChange={handleChange}
                   className="focus:outline-none bg-opacity-0 w-5/6 bg-gray-600 h-16 pl-5 "
                 />{" "}
                 <span
@@ -183,7 +196,8 @@ const Register = () => {
           </p>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
-export default Register;
+export default Login;

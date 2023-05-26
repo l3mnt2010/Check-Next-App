@@ -1,5 +1,6 @@
 import Image from "next/image";
 import img from "../assets/images/checkbox-circle-fill.svg";
+import React from "react";
 interface Abouts {
   title: string;
   text: string;
@@ -19,4 +20,4 @@ const About: React.FC<Abouts> = (props) => {
   );
 };
 
-export default About;
+export default React.memo(About);

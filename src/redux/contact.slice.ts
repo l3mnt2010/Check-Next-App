@@ -1,33 +1,13 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import API, { fetchDataFromAPI } from "@/pages/api/api";
-import { useRouter } from "next/router";
-import { useState } from "react";
-
 import {
   BlogState,
   UserState,
   Data,
   Users,
   Login,
+  Add,
 } from "@/interface/interface";
-
-// const initialState: BlogState = {
-//   postList: [],
-//   user: {
-//     createDate: "",
-//     nameCamp: "",
-//     currentReview: "",
-//     beginReview: "",
-//     targetReview: "",
-//     status: "",
-//     campType: "",
-//     content: "",
-//     linkChiendich: "",
-//     id: "",
-//     currentLike: "",
-//   },
-//   isEdit: false,
-// };
 const initialState: Users = {
   page: 0,
   per_page: 0,
@@ -41,23 +21,47 @@ const initialState: Users = {
     password: "",
   },
 };
-// export const getContact = createAsyncThunk(
-//   "blog/getContact",
-//   async (_, thunkAPI) => {
-//     const response = await API.get("/review");
-//     return response.data;
+
+export const getUsers = createAsyncThunk(
+  "get_users",
+  async (id: number, thunkAPI) => {
+    const response = await API.get<Users>(`/users?page=${id}`);
+    return response.data.data;
+  }
+);
+export const getPerPage = createAsyncThunk(
+  "get_PerPage",
+  async (id: number, thunkAPI) => {
+    const response = await API.get<Users>(`/users?page=${id}`);
+    return response.data.total_pages;
+  }
+);
+export const getUsersSort = createAsyncThunk(
+  "get_users_sort",
+  async (id: number, thunkAPI) => {
+    const response = await API.get<Users>(`/users?page=${id}`);
+    response.data.data.sort((a: Data, b: Data) => {
+      return b.id - a.id;
+    });
+    return response.data.data;
+  }
+);
+// export const getUsersSorts = createAsyncThunk(
+//   "get_users_sorts",
+//   async (id: number, thunkAPI) => {
+//     const response = await API.get<Users>(`/users?page=${id}`);
+//     response.data.data.sort((a: Data, b: Data) => {
+//       return a.last_name[1] - b.
+//     });
+//     return response.data.data;
 //   }
 // );
-export const getUsers = createAsyncThunk("get_users", async (_, thunkAPI) => {
-  const response = await API.get<Users>("/users?page=1");
-  return response.data.data;
-});
 
-export const addContact = createAsyncThunk(
-  "blog/addContact",
-  async (body: UserState, thunkAPI) => {
+export const addUser = createAsyncThunk(
+  "blog/addUser",
+  async (body: Add, thunkAPI) => {
     try {
-      const response = await API.post<UserState>("/review", body);
+      const response = await API.post<Data>("/user", body);
       return response.data;
     } catch (error: any) {
       if (error.name === "AxiosError") {
@@ -68,31 +72,30 @@ export const addContact = createAsyncThunk(
     }
   }
 );
+// export const getContactToPut = createAsyncThunk(
+//   "blog/getContactToPut",
+//   async (postId: string, thunkAPI) => {
+//     const response = await API.get<UserState>(`/review/${postId}`);
+//     return response.data;
+//   }
+// );
 
-export const getContactToPut = createAsyncThunk(
-  "blog/getContactToPut",
-  async (postId: string, thunkAPI) => {
-    const response = await API.get<UserState>(`/review/${postId}`);
-    return response.data;
-  }
-);
-
-export const updateContact = createAsyncThunk(
-  "updatePost",
-  async ({ postId, body }: { postId: string; body: UserState }, thunkAPI) => {
-    try {
-      const response = await API.put<UserState>(`review/${postId}`, body, {
-        signal: thunkAPI.signal,
-      });
-      return response.data;
-    } catch (error: any) {
-      if (error.name === "AxiosError" && error.response.status === 422) {
-        return thunkAPI.rejectWithValue(error.response.data);
-      }
-      throw error;
-    }
-  }
-);
+// export const updateContact = createAsyncThunk(
+//   "updatePost",
+//   async ({ postId, body }: { postId: string; body: UserState }, thunkAPI) => {
+//     try {
+//       const response = await API.put<UserState>(`review/${postId}`, body, {
+//         signal: thunkAPI.signal,
+//       });
+//       return response.data;
+//     } catch (error: any) {
+//       if (error.name === "AxiosError" && error.response.status === 422) {
+//         return thunkAPI.rejectWithValue(error.response.data);
+//       }
+//       throw error;
+//     }
+//   }
+// );
 
 // export const deletePost = createAsyncThunk(
 //   "deletePost",
@@ -122,8 +125,8 @@ export const LoginByEmail = createAsyncThunk(
 );
 export const deleteUsers = createAsyncThunk(
   "deleteUser",
-  async (postId: string, thunkAPI) => {
-    const response = await API.delete<Data>(`/users?page=1/${postId}`, {
+  async (postId: number, thunkAPI) => {
+    const response = await API.delete<Users>(`/users?page=1/${postId}`, {
       signal: thunkAPI.signal,
     });
     return response.data;
@@ -150,6 +153,12 @@ const blogSlice = createSlice({
       .addCase(getUsers.fulfilled, (state, action) => {
         state.data = action.payload;
       })
+      .addCase(getPerPage.fulfilled, (state, action) => {
+        state.total_pages = action.payload;
+      })
+      .addCase(getUsersSort.fulfilled, (state, action) => {
+        state.data = action.payload;
+      })
       .addCase(LoginByEmail.fulfilled, (state, action) => {
         if (
           action.payload.email === "eve.holt@reqres.in" &&
@@ -167,35 +176,43 @@ const blogSlice = createSlice({
           state.isLogin = false;
         }
       })
-      // .addCase(getContact.rejected, (state, action) => {})
-      // .addCase(addContact.fulfilled, (state, action) => {
-      //   state.postList.push(action.payload);
-      // })
-      // .addCase(addContact.rejected, (state, action) => {
-      //   console.log(state, "hihi");
-      // })
-      // .addCase(getContactToPut.fulfilled, (state, action) => {
-      //   state.user = action.payload;
-      //   state.isEdit = true;
-      // })
-      // .addCase(updateContact.fulfilled, (state, action) => {
-      //   state.postList.find((post, index) => {
-      //     if (post.id === action.payload.id) {
-      //       state.postList[index] = action.payload;
-      //       return true;
-      //     }
-      //     return false;
-      //   });
-      // })
-      // .addCase(deletePost.fulfilled, (state, action) => {
-      //   const postId = action.meta.arg;
+      .addCase(deleteUsers.fulfilled, (state, action) => {
+        const postId = action.meta.arg;
 
-      //   state.postList = state.postList.filter((post) => post.id !== postId);
-      // })
-
-      .addDefaultCase((state, action) => {
-        console.log(`action type: ${action.type}`, current(state));
+        state.data = state.data.filter((post) => post.id !== postId);
+      })
+      .addCase(addUser.fulfilled, (state, action) => {
+        state.data.push(action.payload);
       });
+    // .addCase(getContact.rejected, (state, action) => {})
+    // .addCase(addContact.fulfilled, (state, action) => {
+    //   state.postList.push(action.payload);
+    // })
+    // .addCase(addContact.rejected, (state, action) => {
+    //   console.log(state, "hihi");
+    // })
+    // .addCase(getContactToPut.fulfilled, (state, action) => {
+    //   state.user = action.payload;
+    //   state.isEdit = true;
+    // })
+    // .addCase(updateContact.fulfilled, (state, action) => {
+    //   state.postList.find((post, index) => {
+    //     if (post.id === action.payload.id) {
+    //       state.postList[index] = action.payload;
+    //       return true;
+    //     }
+    //     return false;
+    //   });
+    // })
+    // .addCase(deletePost.fulfilled, (state, action) => {
+    //   const postId = action.meta.arg;
+
+    //   state.postList = state.postList.filter((post) => post.id !== postId);
+    // })
+
+    // .addDefaultCase((state, action) => {
+    //   console.log(`action type: ${action.type}`, current(state));
+    // });
   },
 });
 

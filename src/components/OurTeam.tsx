@@ -2,6 +2,7 @@ import TeamMember from "../components/TeamMember";
 import member1 from "../assets/images/Profile.png";
 import member2 from "../assets/images/Profile Image.png";
 import member3 from "../assets/images/Profile Images.png";
+import React from "react";
 
 const about =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra nunc ante velit vitae. Est tellus vitae.";
@@ -46,4 +47,4 @@ const OurTeam = () => {
   );
 };
 
-export default OurTeam;
+export default React.memo(OurTeam);

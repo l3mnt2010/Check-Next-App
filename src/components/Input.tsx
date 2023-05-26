@@ -17,4 +17,4 @@ const Input: React.FC<Item> = (props) => {
   );
 };
 
-export default Input;
+export default React.memo(Input);

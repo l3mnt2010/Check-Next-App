@@ -1,4 +1,6 @@
-export default function Loading() {
+import React from "react";
+
+function Loading() {
   return (
     <div
       role="status"
@@ -27,3 +29,4 @@ export default function Loading() {
     </div>
   );
 }
+export default React.memo(Loading);

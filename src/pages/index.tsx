@@ -1,16 +1,17 @@
+import { useSelector } from "react-redux";
+import Link from "next/link";
+import { RootState } from "@/redux/store";
+import Menus from "@/components/Menus";
+import { showToastMessage } from "./dasboard";
+import { ToastContainer } from "react-toastify";
 import BlogPost from "../components/BlogPost";
-import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import img1 from "../assets/images/Image (1).png";
 import img2 from "../assets/images/Image (2).png";
 import img3 from "../assets/images/Images.png";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import Logo from "../../public/images/Frame 453.png";
 import Home from "@/components/Home";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import Menus from "@/components/Menus";
 
 const about =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra nunc ante velit vitae. Est tellus vitae.";
@@ -31,7 +32,7 @@ const blog = [
 
 const OurRecentBlog = () => {
   const isLogin = useSelector((state: RootState) => state.isLogin);
-  const router = useRouter();
+
   return (
     <div className="main w-full h-screen block">
       {isLogin && <Menus />}
@@ -49,25 +50,20 @@ const OurRecentBlog = () => {
 
             <div className="flex justify-center items-center gap-5">
               <div>
-                <button
-                  className="bg-purple-300 rounded-xl text-white font-bold w-32 h-10"
-                  onClick={() => {
-                    router.push("/login");
-                  }}
+                <Link
+                  href={"/login"}
+                  className="bg-purple-300 rounded-xl text-white w-auto font-bold  h-full  px-2 py-1 my-2 ring-inherit transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 mr-3"
                 >
-                  {" "}
-                  LOGIN
-                </button>
+                  Login
+                </Link>
               </div>
               <div>
-                <button
-                  className="bg-pink-300 rounded-xl text-white font-bold w-32 h-10"
-                  onClick={() => {
-                    router.push("/register");
-                  }}
+                <Link
+                  href={"/register"}
+                  className="bg-pink-300 rounded-xl text-white font-bold h-full ring-inherit px-1 py-1 my-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 mr-3"
                 >
                   Register
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -87,6 +83,7 @@ const OurRecentBlog = () => {
           </div>
         </div>
       )}
+      <ToastContainer />
       <Home />
     </div>
   );

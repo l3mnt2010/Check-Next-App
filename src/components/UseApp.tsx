@@ -2,6 +2,7 @@ import Image from "next/image";
 import eslip from "../assets/images/Ellipse 16.png";
 import image from "../assets/images/Image.png";
 import videofill from "../assets/images/video-fill.png";
+import React from "react";
 
 const UseApp = () => {
   return (
@@ -34,4 +35,4 @@ const UseApp = () => {
   );
 };
 
-export default UseApp;
+export default React.memo(UseApp);

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { DownOutlined } from "@ant-design/icons";
 import Logo from "../../public/images/Frame 453.png";
+import Link from "next/link";
 
 const SideBarAdmin = () => {
   const [showCRUD, setShowCRUD] = useState(false);
@@ -48,7 +49,7 @@ const SideBarAdmin = () => {
           </li>
           <li>
             <div>
-              <p>Manage Early Register</p>
+              <Link href={"/"}>Manage Early Register</Link>
             </div>
           </li>
         </ul>
@@ -57,4 +58,4 @@ const SideBarAdmin = () => {
   );
 };
 
-export default SideBarAdmin;
+export default React.memo(SideBarAdmin);

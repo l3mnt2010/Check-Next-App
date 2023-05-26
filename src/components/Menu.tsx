@@ -1,3 +1,4 @@
+import React from "react";
 import remove from "../assets/images/Remove.png";
 import Image from "next/image";
 
@@ -11,7 +12,7 @@ const Menu: React.FC<Menus> = (props) => {
   const { onBold, onClose, notBold } = props;
 
   return (
-    <div className="z-50 w-max sm:p-5 absolute top-16 left-5 font-bold text-sm sm:left-10 lg:left-20 grid grid-rows-4 gap-y-5 shadow-2xl bg-white p-5 hover:underline">
+    <div className="lg:hidden z-50 w-max sm:p-5 absolute top-16 left-5 font-bold text-sm sm:left-10 lg:left-20 grid grid-rows-4 gap-y-5 shadow-2xl bg-white p-5 hover:underline">
       <Image
         alt=""
         className="absolute right-1 w-4 h-4 "
@@ -45,4 +46,4 @@ const Menu: React.FC<Menus> = (props) => {
     </div>
   );
 };
-export default Menu;
+export default React.memo(Menu);

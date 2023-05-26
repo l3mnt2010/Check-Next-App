@@ -1,5 +1,6 @@
 import { StaticImageData } from "next/image";
 import Image from "next/image";
+import React from "react";
 
 interface Recent {
   img: StaticImageData;
@@ -16,4 +17,4 @@ const RecentsPost: React.FC<Recent> = (props) => {
     </div>
   );
 };
-export default RecentsPost;
+export default React.memo(RecentsPost);

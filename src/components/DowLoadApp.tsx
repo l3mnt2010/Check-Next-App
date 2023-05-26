@@ -1,3 +1,4 @@
+import React from "react";
 import topping1 from "../assets/images/toppng 1.png";
 import topping2 from "../assets/images/PngItem_1144050 2.png";
 import dowload from "../assets/images/download-2-fill.png";
@@ -56,4 +57,4 @@ const DowLoadApp = () => {
   );
 };
 
-export default DowLoadApp;
+export default React.memo(DowLoadApp);

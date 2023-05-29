@@ -1,11 +1,10 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Spin } from "antd";
-
-import { loginApi } from "../service/service.user";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
-import { LoginByEmail } from "@/redux/contact.slice";
+import { loginUser } from "@/redux/contact.slice";
 import { useAppDispatch, RootState } from "@/redux/store";
 import Image from "next/image";
 import facebook from "../../../public/images/facebook-fill.png";
@@ -14,74 +13,45 @@ import twitter from "../../../public/images/image 2.png";
 import instagram from "../../../public/images/image 3.png";
 import pass_hidden from "../../../public/images/pass hidden.png";
 import pass_show from "../../../public/images/show-pass.jpg";
-
 import ItemLink from "@/components/ItemLink";
 import { ToastContainer } from "react-toastify";
-import { showToastMessage, showToastMessageFailed } from "../dasboard";
-
-interface User {
-  email: string;
-  password: string;
-}
+import { Login } from "@/interface/interface";
+import Link from "next/link";
+import { showToastMessage } from "@/toastify/toastify.global";
 export const IformInput = [{ type: "email", placeholder: "mail@example.com" }];
 export const Images = [facebook, youtube, twitter, instagram];
-const Login = () => {
+const Log_in = () => {
+  const token = useSelector((state: RootState) => state.token.token.token);
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const isLogin = useSelector((state: RootState) => state.isLogin);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm<User>({});
-
-  const onSubmit: SubmitHandler<User> = async (data) => {
+  const { register, handleSubmit, setValue } = useForm<Login>();
+  const onSubmit: SubmitHandler<Login> = async (data, e: any) => {
+    e.preventDefault();
     setIsLoading(true);
-    await dispatch(LoginByEmail(data));
-
-    if (isLogin == true) {
-      setIsLoading(false);
-      showToastMessage();
-      router.push("/");
-    } else {
-      setTimeout(() => {
-        if (isLogin == false) {
-          setIsLoading(false);
-          showToastMessageFailed();
-          setPassword("");
-        }
-      }, 5000);
-    }
+    dispatch(loginUser(data));
   };
-
-  const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  }, []);
   useEffect(() => {
-    setValue("password", password);
-  }, [password, setValue]);
-
-  // const handleLogin = async (data: User) => {
-  //   let res  = await loginApi(data.email, data.password).then((res) => {
-  //     if (res.status >= 200 && res.status <= 300) {
-  //       return;
-  //     } else {
-  //       return res.data.token;
-  //     }
-  //   });
-  //   if (res) {
-  //     localStorage.setItem("token", res);
-  //     console.log("tôi yêu hehe", res);
-  //   } else {
-  //     console.log("user not found");
-  //   }
-  // };
+    if (token !== "") {
+      showToastMessage("success", "Đăng nhập thành công !");
+      localStorage.setItem("token", token);
+      router.push("/");
+    }
+    if (token.length == 0) {
+      // showToastMessage("", "Đăng nhập thất bại !!!");
+      setIsLoading(false);
+      setPassword("");
+    }
+  }, [dispatch, token]);
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setPassword(event.target.value);
+    },
+    [setPassword, handleSubmit]
+  );
 
   return (
     <div className="register bg-black w-screen h-screen pt-5 fixed top-0 left-0 right-0 bottom-0">
@@ -145,9 +115,9 @@ const Login = () => {
                   <p className="text-green-300">Remember Credentials</p>
                 </div>
 
-                <a href="" className="text-pink-400">
+                <Link href="" className="text-pink-400">
                   Forgot password ?
-                </a>
+                </Link>
               </div>
               <div className="flex gap-2">
                 <input type="checkbox" value="" />
@@ -174,7 +144,7 @@ const Login = () => {
               <div className="font-thin text-lg w-full text-center text-white">
                 Don't have a account ?
                 <span className="text-pink-400">
-                  <a href="/register"> Register</a>
+                  <Link href="/register"> Register</Link>
                 </span>
               </div>
 
@@ -183,6 +153,7 @@ const Login = () => {
                   OR LOGIN WITH
                 </li>
                 {Images.map((itm) => {
+                  // eslint-disable-next-line react/jsx-key
                   return <ItemLink image={itm} />;
                 })}
               </ul>
@@ -200,4 +171,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default Log_in;

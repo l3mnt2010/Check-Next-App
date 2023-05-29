@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
+import Home from "@/components/Home";
 import Link from "next/link";
 import { RootState } from "@/redux/store";
 import Menus from "@/components/Menus";
-import { showToastMessage } from "./dasboard";
 import { ToastContainer } from "react-toastify";
 import BlogPost from "../components/BlogPost";
 import "react-slideshow-image/dist/styles.css";
@@ -11,7 +11,6 @@ import img2 from "../assets/images/Image (2).png";
 import img3 from "../assets/images/Images.png";
 import Image from "next/image";
 import Logo from "../../public/images/Frame 453.png";
-import Home from "@/components/Home";
 
 const about =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra nunc ante velit vitae. Est tellus vitae.";
@@ -31,12 +30,11 @@ const blog = [
 ];
 
 const OurRecentBlog = () => {
-  const isLogin = useSelector((state: RootState) => state.isLogin);
-
+  const token = useSelector((state: RootState) => state.token.token.token);
   return (
     <div className="main w-full h-screen block">
-      {isLogin && <Menus />}
-      {!isLogin && (
+      {token != "" && <Menus />}
+      {token == "" && (
         <div>
           <div className="flex justify-around pt-10">
             <div className="flex">
@@ -77,6 +75,7 @@ const OurRecentBlog = () => {
             </p>
             <div className="sm:flex w-5/6 mx-auto gap-20">
               {blog.map((itm) => (
+                // eslint-disable-next-line react/jsx-key
                 <BlogPost img={itm.img} title={itm.title} text={about} />
               ))}
             </div>

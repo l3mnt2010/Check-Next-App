@@ -1,25 +1,24 @@
 import remove from "../assets/images/Remove.png";
-import { logOut } from "@/redux/contact.slice";
-import { RootState } from "@/redux/store";
-import { useSelector, connect, useDispatch } from "react-redux";
 import Image from "next/image";
-import handler from "../pages/api/hello";
-import { showToastMessage } from "@/pages/dasboard";
+import { useAppDispatch } from "@/redux/store";
 import { ToastContainer } from "react-toastify";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
-interface Menus {
-  onBolds: () => void;
-  onCloses: () => void;
-}
+import { Menus } from "@/interface/interface";
+import { showToastMessage } from "@/toastify/toastify.global";
+import { useRouter } from "next/router";
+import { logOut, loginUser } from "@/redux/contact.slice";
 
 const OptionUser: React.FC<Menus> = (props) => {
   const { onBolds, onCloses } = props;
-  const dispatch = useDispatch();
+  const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const handlerLogOut = () => {
     dispatch(logOut());
+    router.push("/login");
   };
+
   return (
     <div className="z-50 w-max sm:p-5 absolute top-16 left-5 font-bold text-sm sm:right-0 lg:right-0 grid grid-rows-4 gap-y-5 shadow-2xl bg-white p-5 hover:underline">
       <Image
@@ -50,7 +49,7 @@ const OptionUser: React.FC<Menus> = (props) => {
         className="font-sans text-sm hover:underline transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 mr-3"
         onClick={() => {
           handlerLogOut();
-          showToastMessage();
+          showToastMessage("success", "Thành công");
           onCloses();
         }}
       >

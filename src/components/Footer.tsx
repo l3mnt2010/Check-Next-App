@@ -15,6 +15,7 @@ const Footer = () => {
           </p>
           <div className="w-full flex py-1 my-5 sm:w-1/2">
             {logo.map((itm) => (
+              // eslint-disable-next-line react/jsx-key
               <div className="flex gap-5">
                 <Image src={line} alt="" className="h-7" />
                 <Image

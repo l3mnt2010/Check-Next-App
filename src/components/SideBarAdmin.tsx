@@ -16,7 +16,7 @@ const SideBarAdmin = () => {
         <ul>
           <li>
             <div>
-              <a href="/admin">Dashboard</a>
+              <Link href="/admin">Dashboard</Link>
             </div>
           </li>
           <li>
@@ -34,9 +34,9 @@ const SideBarAdmin = () => {
               {showCRUD && (
                 <li>
                   <div>
-                    <a href="/admin/CRUD" className="text-red-400 underline">
+                    <Link href="/admin/CRUD" className="text-red-400 underline">
                       CRUD
-                    </a>
+                    </Link>
                   </div>
                 </li>
               )}

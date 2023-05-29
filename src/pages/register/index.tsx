@@ -41,6 +41,7 @@ const Register = () => {
               className="flex flex-col w-3/4 mx-auto h-2/3 gap-5 pt-5 text-white"
             >
               {IformInput.map((itm) => {
+                // eslint-disable-next-line react/jsx-key
                 return <Input placeholder={itm.placeholder} type={itm.type} />;
               })}
 
@@ -62,6 +63,7 @@ const Register = () => {
               </div>
               <ul className="h-1/2 mx-auto flex justify-around gap-4">
                 {Images.map((itm) => {
+                  // eslint-disable-next-line react/jsx-key
                   return <ItemLink image={itm} />;
                 })}
               </ul>

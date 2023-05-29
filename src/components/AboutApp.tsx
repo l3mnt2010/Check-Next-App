@@ -1,6 +1,6 @@
 import Image from "next/image";
-import android from "../assets/images/android-smartphone-free-mockup 1.png";
 import About from "../components/About";
+import android from "../assets/images/android-smartphone-free-mockup 1.png";
 
 const AboutApp: React.FC<any> = () => {
   const review = [
@@ -19,10 +19,10 @@ const AboutApp: React.FC<any> = () => {
   ];
 
   return (
-    <div className="left_register relative top-6 w-full h-full mx-10 my-16 shadow-2xl sm:w-full pl-52 sm:mx-auto">
-      <div className="w-full block sm:w-2/3 sm:flex sm:gap-32">
+    <div className="left_register w-5/6 h-full mx-auto my-16 shadow-2xl sm:w-full px-10 sm:pl-52">
+      <div className="w-full flex flex-col sm:w-2/3 sm:flex sm:flex-row sm:gap-32">
         <div className="w-full flex flex-col gap-5 sm:pl-32 sm:pt-10">
-          <h1 className="mx-auto text-xl font-bold sm:text-3xl text-white">
+          <h1 className="mx-auto w-full text-center text-xl font-bold sm:text-3xl text-white">
             About Our App
           </h1>
           <p className="w-full text-center text-purple-50">
@@ -35,10 +35,11 @@ const AboutApp: React.FC<any> = () => {
             src={android}
           />
         </div>
-        <div className="w-full sm:w-full">
+        <div className="w-full mx-auto sm:w-full">
           {review.map((itm) => {
             let text = itm.text;
             let title = itm.title;
+            // eslint-disable-next-line react/jsx-key
             return <About title={title} text={text} />;
           })}
         </div>

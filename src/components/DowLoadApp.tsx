@@ -40,6 +40,7 @@ const DowLoadApp = () => {
         </div>
         <div className="mx-8 gap-3 flex justify-around sm:mx-7">
           {review.map((itm) => (
+            // eslint-disable-next-line react/jsx-key
             <Reactangle
               number={itm.number}
               interact={itm.interact}

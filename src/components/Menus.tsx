@@ -15,7 +15,9 @@ const Menus = () => {
   const [native, setNative] = useState(true);
   const [bold, isBold] = useState(false);
   const [nativeOption, setNativeOption] = useState(true);
-  const Login = useSelector((state: RootState) => state.information);
+  const token = useSelector((state: RootState) => state.token.token.token);
+  // const token = localStorage.getItem("token");
+  const email = useSelector((state: RootState) => state.information.email);
 
   const isBolds = () => {
     isBold(false);
@@ -39,6 +41,7 @@ const Menus = () => {
         </div>
         <div className="w-1/6 flex justify-around h-5">
           {logo.map((itm) => (
+            // eslint-disable-next-line react/jsx-key
             <Image alt="" width={20} height={25} src={itm} />
           ))}
         </div>
@@ -88,7 +91,7 @@ const Menus = () => {
         >
           Blog
         </Link>
-        {Login.email === "" && Login.password === "" ? (
+        {token == "" ? (
           <div className=" w-auto font-bold text-white h-full rounded-lg px-1 py-1 my-2 bg-blue ring-inherit transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 mr-3">
             DownLoad
           </div>
@@ -99,7 +102,7 @@ const Menus = () => {
             }}
             className="relative w-auto font-bold text-white h-full rounded-lg px-1 py-1 my-2 bg-blue ring-inherit transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 mr-3"
           >
-            Xin chào {Login.email.toLowerCase()}
+            Xin chào {email}
           </button>
         )}
         {!nativeOption && (

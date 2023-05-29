@@ -33,6 +33,7 @@ const OurRecentBlog = () => {
       </p>
       <div className="sm:flex w-5/6 mx-auto gap-20">
         {blog.map((itm) => (
+          // eslint-disable-next-line react/jsx-key
           <BlogPost img={itm.img} title={itm.title} text={about} />
         ))}
       </div>

@@ -67,6 +67,7 @@ const AppFuture = () => {
       <div className="w-full block sm:w-5/6 mx-auto sm:flex">
         <div className="flex flex-col gap-40">
           {review.map((freechat) => (
+            // eslint-disable-next-line react/jsx-key
             <Future
               img={freechat.img}
               text={freechat.text}
@@ -81,6 +82,7 @@ const AppFuture = () => {
         />
         <div className="flex flex-col gap-40">
           {reviews.map((freechat) => (
+            // eslint-disable-next-line react/jsx-key
             <Future
               img={freechat.img}
               text={freechat.text}

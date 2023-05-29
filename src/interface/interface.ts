@@ -1,3 +1,4 @@
+import Register from "../pages/register/index";
 // const API = "https://jsonplaceholder.typicode.com/users";
 export interface UserStates {
   id: number;
@@ -58,7 +59,9 @@ export interface Users {
   total: number;
   total_pages: number;
   data: Data[];
-  isLogin: boolean;
+  token: {
+    token: Token;
+  };
   information: Login;
 }
 
@@ -69,4 +72,26 @@ export interface Login {
 export interface Add {
   name: string;
   job: string;
+}
+
+export interface Menus {
+  onBolds: () => void;
+  onCloses: () => void;
+}
+
+export interface Abouts {
+  title: string;
+  text: string;
+}
+interface Token {
+  token: string;
+}
+
+export interface Register {
+  email: string;
+  password: string;
+}
+
+interface AuthState {
+  isAuthenticated: boolean;
 }

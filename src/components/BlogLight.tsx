@@ -73,6 +73,7 @@ const BlogLight = () => {
         </div>
         <div className="w-1/4">
           {blog_recent.map((itm) => (
+            // eslint-disable-next-line react/jsx-key
             <RecentPosts img={itm.img} text={itm.title} />
           ))}
         </div>

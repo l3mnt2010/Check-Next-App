@@ -20,7 +20,6 @@ const Paginate = () => {
   return (
     <div className="w-1/3 mx-auto my-10">
       <h1 className="w-full text-center font-thin">Page</h1>
-      <hr />
       <ReactPaginate
         className="flex justify-between mt-5 items-center font-thin"
         breakLabel="..."

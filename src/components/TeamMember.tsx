@@ -32,6 +32,7 @@ const TeamMember: React.FC<Team> = (props) => {
       </div>
       <div className="w-5/6 mx-auto flex justify-evenly py-5">
         {logo.map((itm) => (
+          // eslint-disable-next-line react/jsx-key
           <div>
             <Image className="w-1/3 shadow-2xl" src={itm} alt="this is logo" />
           </div>

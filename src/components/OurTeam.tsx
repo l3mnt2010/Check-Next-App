@@ -35,6 +35,7 @@ const OurTeam = () => {
       </p>
       <div className="sm:flex sm:w-2/3 gap-20 mx-auto">
         {team.map((itm) => (
+          // eslint-disable-next-line react/jsx-key
           <TeamMember
             name={itm.name}
             job={itm.job}

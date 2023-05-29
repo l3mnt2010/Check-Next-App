@@ -5,6 +5,7 @@ import Success from "../../../public/images/Group 33604.png";
 import Logo from "../../../public/images/Frame 453.png";
 
 const success = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
   return (
     <div className="register bg-black w-screen h-screen pt-5 fixed top-0 left-0 right-0 bottom-0">

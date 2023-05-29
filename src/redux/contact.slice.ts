@@ -1,13 +1,6 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import API, { fetchDataFromAPI } from "@/pages/api/api";
-import {
-  BlogState,
-  UserState,
-  Data,
-  Users,
-  Login,
-  Add,
-} from "@/interface/interface";
+import API from "@/pages/api/api";
+import { Data, Users, Login, Add, Register } from "@/interface/interface";
 const initialState: Users = {
   page: 0,
   per_page: 0,
@@ -15,7 +8,11 @@ const initialState: Users = {
   total_pages: 0,
   data: [],
   length: 0,
-  isLogin: false,
+  token: {
+    token: {
+      token: "",
+    },
+  },
   information: {
     email: "",
     password: "",
@@ -46,16 +43,6 @@ export const getUsersSort = createAsyncThunk(
     return response.data.data;
   }
 );
-// export const getUsersSorts = createAsyncThunk(
-//   "get_users_sorts",
-//   async (id: number, thunkAPI) => {
-//     const response = await API.get<Users>(`/users?page=${id}`);
-//     response.data.data.sort((a: Data, b: Data) => {
-//       return a.last_name[1] - b.
-//     });
-//     return response.data.data;
-//   }
-// );
 
 export const addUser = createAsyncThunk(
   "blog/addUser",
@@ -72,57 +59,31 @@ export const addUser = createAsyncThunk(
     }
   }
 );
-// export const getContactToPut = createAsyncThunk(
-//   "blog/getContactToPut",
-//   async (postId: string, thunkAPI) => {
-//     const response = await API.get<UserState>(`/review/${postId}`);
-//     return response.data;
-//   }
-// );
 
-// export const updateContact = createAsyncThunk(
-//   "updatePost",
-//   async ({ postId, body }: { postId: string; body: UserState }, thunkAPI) => {
-//     try {
-//       const response = await API.put<UserState>(`review/${postId}`, body, {
-//         signal: thunkAPI.signal,
-//       });
-//       return response.data;
-//     } catch (error: any) {
-//       if (error.name === "AxiosError" && error.response.status === 422) {
-//         return thunkAPI.rejectWithValue(error.response.data);
-//       }
-//       throw error;
-//     }
-//   }
-// );
+export const loginUser = createAsyncThunk("auth/login", async (body: Login) => {
+  try {
+    const response = await API.post("/login", body);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.message);
+  }
+});
 
-// export const deletePost = createAsyncThunk(
-//   "deletePost",
-//   async (postId: string, thunkAPI) => {
-//     const response = await API.delete<UserState>(`review/${postId}`, {
-//       signal: thunkAPI.signal,
-//     });
-//     return response.data;
-//   }
-// );
-
-export const LoginByEmail = createAsyncThunk(
-  "login",
-  async (body: Login, thunkAPI) => {
+export const registerUser = createAsyncThunk(
+  "auth/register",
+  async (body: Register) => {
     try {
-      const response = await API.post<Login>("/api/login", body);
-
+      const response = await API.post("/register", body);
       return response.data;
     } catch (error: any) {
-      if (error.name === "AxiosError") {
-        console.log(error);
-        return thunkAPI.rejectWithValue(error.response.data);
-      }
-      throw error;
+      throw new Error(error.response.data.message);
     }
   }
 );
+
+export const logOut = createAsyncThunk("auth/logout", async () => {
+  return null;
+});
 export const deleteUsers = createAsyncThunk(
   "deleteUser",
   async (postId: number, thunkAPI) => {
@@ -135,18 +96,7 @@ export const deleteUsers = createAsyncThunk(
 const blogSlice = createSlice({
   name: "contact",
   initialState,
-  reducers: {
-    logOut: (state) => {
-      return {
-        ...state,
-        isLogin: false,
-        information: {
-          email: "",
-          password: "",
-        },
-      };
-    },
-  },
+  reducers: {},
 
   extraReducers(builder) {
     builder
@@ -159,21 +109,13 @@ const blogSlice = createSlice({
       .addCase(getUsersSort.fulfilled, (state, action) => {
         state.data = action.payload;
       })
-      .addCase(LoginByEmail.fulfilled, (state, action) => {
-        if (
-          action.payload.email === "eve.holt@reqres.in" &&
-          action.payload.password === "cityslicka"
-        ) {
-          state.isLogin = true;
-          state.information.email = action.payload.email;
-          state.information.password = action.payload.password;
-        } else {
-          state.isLogin = false;
-        }
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.token.token = action.payload;
+        state.information.email = "eve.holt@reqres.in";
       })
-      .addCase(LoginByEmail.rejected, (state, action) => {
+      .addCase(logOut.fulfilled, (state) => {
         {
-          state.isLogin = false;
+          state.token.token.token = "";
         }
       })
       .addCase(deleteUsers.fulfilled, (state, action) => {
@@ -217,5 +159,5 @@ const blogSlice = createSlice({
 });
 
 const blogReducer = blogSlice.reducer;
-export const { logOut } = blogSlice.actions;
+
 export default blogReducer;

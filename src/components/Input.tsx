@@ -1,9 +1,6 @@
+import { Item } from "@/interface/interface";
 import React from "react";
 
-interface Item {
-  placeholder: string;
-  type: string;
-}
 const Input: React.FC<Item> = (props) => {
   const { placeholder, type } = props;
   return (

@@ -3,7 +3,7 @@ import topping2 from "../assets/images/PngItem_1144050 2.png";
 import telephone from "../assets/images/Free Ui View Mobile App Mockup 1.png";
 import Image from "next/image";
 
-const PrApp: React.FC<any> = () => {
+const PrApp = () => {
   return (
     <div className="w-full p-10 mx-auto md:w-full bg-BG_Basic flex flex-col text-white sm:grid md:grid-cols-2 md:p-32 md:gap-10">
       <div className=" md:relative border-2 md:border-8 border-cyan-500 md:ml-10">

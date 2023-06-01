@@ -2,56 +2,45 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Spin } from "antd";
+import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
 import { loginUser } from "@/redux/contact.slice";
 import { useAppDispatch, RootState } from "@/redux/store";
-import Image from "next/image";
-import facebook from "../../../public/images/facebook-fill.png";
-import youtube from "../../../public/images/image 4.png";
-import twitter from "../../../public/images/image 2.png";
-import instagram from "../../../public/images/image 3.png";
 import pass_hidden from "../../../public/images/pass hidden.png";
 import pass_show from "../../../public/images/show-pass.jpg";
 import ItemLink from "@/components/ItemLink";
 import { ToastContainer } from "react-toastify";
-import { Login } from "@/interface/interface";
+import { LoginCredentials } from "@/interface/interface";
 import Link from "next/link";
 import { showToastMessage } from "@/toastify/toastify.global";
-export const IformInput = [{ type: "email", placeholder: "mail@example.com" }];
-export const Images = [facebook, youtube, twitter, instagram];
+import { IformInput, Images } from "@/item.global";
+
 const Log_in = () => {
-  const token = useSelector((state: RootState) => state.token.token.token);
+  const loading = useSelector((state: RootState) => state.auth.isAuthenticated);
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
-
-  const { register, handleSubmit, setValue } = useForm<Login>();
-  const onSubmit: SubmitHandler<Login> = async (data, e: any) => {
+  const { register, handleSubmit, setValue } = useForm<LoginCredentials>();
+  const onSubmit: SubmitHandler<LoginCredentials> = async (data, e: any) => {
     e.preventDefault();
-    setIsLoading(true);
     dispatch(loginUser(data));
   };
   useEffect(() => {
-    if (token !== "") {
-      showToastMessage("success", "Đăng nhập thành công !");
-      localStorage.setItem("token", token);
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    if (token != null) {
+      showToastMessage("success", "Thành công !!!");
       router.push("/");
-    }
-    if (token.length == 0) {
-      // showToastMessage("", "Đăng nhập thất bại !!!");
-      setIsLoading(false);
+    } else {
       setPassword("");
     }
-  }, [dispatch, token]);
-  const handleChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setPassword(event.target.value);
-    },
-    [setPassword, handleSubmit]
-  );
+  }, [dispatch]);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
 
   return (
     <div className="register bg-black w-screen h-screen pt-5 fixed top-0 left-0 right-0 bottom-0">
@@ -78,7 +67,7 @@ const Log_in = () => {
                 placeholder={IformInput[0].placeholder}
                 {...register("email", {})}
                 className="focus:outline-none bg-opacity-0 bg-gray-600 h-16 pl-5 border-b-4  border-b-white w-full "
-              />{" "}
+              />
               <div className="w-full flex bg-opacity-0 bg-gray-600 border-b-4  border-b-white">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -130,9 +119,7 @@ const Log_in = () => {
                 onClick={handleSubmit(onSubmit)}
                 className="w-full bg-black font-bold text-white h-14"
               >
-                <span className="bg-opacity-5 mr-2">
-                  {isLoading && <Spin />}
-                </span>
+                <span className="bg-opacity-5 mr-2">{loading && <Spin />}</span>
                 Login
               </button>
             </form>
@@ -160,7 +147,7 @@ const Log_in = () => {
             </div>
           </div>
         </div>
-        <div className="w-full mt-20">
+        <div className="w-full mt-48">
           <p className="w-full text-center font-thin text-white text-lg">
             © 2023 Official Register Form. All Rights Reserved | Design by
             Truong Ngoc Lam

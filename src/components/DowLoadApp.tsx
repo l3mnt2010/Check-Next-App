@@ -1,30 +1,11 @@
 import React from "react";
 import topping1 from "../assets/images/toppng 1.png";
 import topping2 from "../assets/images/PngItem_1144050 2.png";
-import dowload from "../assets/images/download-2-fill.png";
-import like from "../assets/images/thumb-up-fill.png";
-import star from "../assets/images/star-fill.png";
 import Reactangle from "../components/Reactangle";
 import appdesign from "../assets/images/App Desgin.png";
 import Image from "next/image";
+import { suggest } from "@/item.global";
 
-const review = [
-  {
-    interact: "Download",
-    number: 59865,
-    img: dowload,
-  },
-  {
-    interact: "Like",
-    number: 29852,
-    img: like,
-  },
-  {
-    interact: "5 star rating",
-    number: 1500,
-    img: star,
-  },
-];
 const DowLoadApp = () => {
   return (
     <div className="sm:w-5/6 sm:mx-auto sm:flex sm:shadow-xl">
@@ -39,7 +20,7 @@ const DowLoadApp = () => {
           <Image className="w-1/3" src={topping2} alt="" />
         </div>
         <div className="mx-8 gap-3 flex justify-around sm:mx-7">
-          {review.map((itm) => (
+          {suggest.map((itm) => (
             // eslint-disable-next-line react/jsx-key
             <Reactangle
               number={itm.number}

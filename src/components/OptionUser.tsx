@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Menus } from "@/interface/interface";
 import { showToastMessage } from "@/toastify/toastify.global";
 import { useRouter } from "next/router";
-import { logOut, loginUser } from "@/redux/contact.slice";
+import { logoutUser } from "@/redux/contact.slice";
 
 const OptionUser: React.FC<Menus> = (props) => {
   const { onBolds, onCloses } = props;
@@ -15,7 +15,7 @@ const OptionUser: React.FC<Menus> = (props) => {
   const dispatch = useAppDispatch();
 
   const handlerLogOut = () => {
-    dispatch(logOut());
+    dispatch(logoutUser());
     router.push("/login");
   };
 

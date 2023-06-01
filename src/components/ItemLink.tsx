@@ -1,16 +1,14 @@
 import React from "react";
-import Image, { StaticImageData } from "next/image";
-interface GetItem {
-  image: StaticImageData;
-}
+import Image from "next/image";
+import { GetItem } from "@/interface/interface";
 
 const ItemLink: React.FC<GetItem> = (props) => {
   return (
-    <li className="hover:animate-spin-slow bg-white hover:bg-blue-300 border bg-opacity-20 box-content border-white">
+    <div className="hover:animate-spin-slow bg-white hover:bg-blue-300 border bg-opacity-20 box-content border-white">
       <a href="">
         <Image src={props.image} alt="" width={35} height={35} />
       </a>
-    </li>
+    </div>
   );
 };
 

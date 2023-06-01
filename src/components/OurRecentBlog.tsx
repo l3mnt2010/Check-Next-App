@@ -1,25 +1,6 @@
 import BlogPost from "../components/BlogPost";
-import img1 from "../assets/images/Image (1).png";
-import img2 from "../assets/images/Image (2).png";
-import img3 from "../assets/images/Images.png";
 import React from "react";
-
-const about =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra nunc ante velit vitae. Est tellus vitae.";
-const blog = [
-  {
-    title: "The Snap Pixel: How It Works and How to Install ",
-    img: img1,
-  },
-  {
-    title: "Global Partner Solutions: A Partnership of Innova",
-    img: img2,
-  },
-  {
-    title: "2021: An opportunity for Snapchatters to start fre",
-    img: img3,
-  },
-];
+import { about, blog } from "@/item.global";
 
 const OurRecentBlog = () => {
   return (

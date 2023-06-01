@@ -1,5 +1,4 @@
 import Image from "next/image";
-import eslip from "../assets/images/Ellipse 16.png";
 import image from "../assets/images/Image.png";
 import videofill from "../assets/images/video-fill.png";
 import React from "react";
@@ -20,11 +19,6 @@ const UseApp = () => {
           src={image}
           alt="đây là bộ ảnh"
         />
-        {/* <img
-          className="absolute left-44 top-16 w-10"
-          src={eslip}
-          alt="đây là bộ ảnh"
-        /> */}
         <Image
           className="absolute left-48 w-8 top-20 z-10 sm:hidden"
           src={videofill}

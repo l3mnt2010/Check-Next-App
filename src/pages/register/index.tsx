@@ -1,23 +1,50 @@
-import React from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
-import facebook from "../../../public/images/facebook-fill.png";
-import youtube from "../../../public/images/image 4.png";
-import twitter from "../../../public/images/image 2.png";
-import instagram from "../../../public/images/image 3.png";
-
-import Input from "@/components/Input";
-import ItemLink from "@/components/ItemLink";
-import { Images } from "../login";
+import { SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
+import { Spin } from "antd";
+import Image, { StaticImageData } from "next/image";
+import pass_hidden from "../../../public/images/pass hidden.png";
+import pass_show from "../../../public/images/show-pass.jpg";
+import ItemLink from "@/components/ItemLink";
+import { IformInput, Images } from "@/item.global";
+import { RootState, useAppDispatch } from "@/redux/store";
+import { LoginCredentials } from "@/interface/interface";
+import { useSelector } from "react-redux";
+import { registerUser } from "@/redux/register.slice";
+import { showToastMessage } from "@/toastify/toastify.global";
 
-export const IformInput = [
-  { type: "text", placeholder: "First Name" },
-  { type: "email", placeholder: "mail@example.com" },
-  { type: "password", placeholder: "Password" },
-  { type: "password", placeholder: "Confirm Password" },
-];
 const Register = () => {
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("res_token") : null;
+  const loading = useSelector(
+    (state: RootState) => state.register.isAuthenRegister
+  );
+  const id = useSelector((state: RootState) => state.register.id);
+  const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const { register, handleSubmit } = useForm<LoginCredentials>();
+  const onSubmit: SubmitHandler<LoginCredentials> = async (data, e: any) => {
+    e.preventDefault();
+    dispatch(registerUser(data));
+  };
+  useEffect(() => {
+    if (token !== null && id !== null) {
+      showToastMessage("success", "Thành công !!!");
+      router.push("/register/success");
+    } else {
+      setPassword("");
+      showToastMessage("", "Thất bại !!!");
+    }
+  }, [dispatch, router]);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
   return (
     <div className="register bg-black w-screen h-screen pt-5 fixed top-0 left-0 right-0 bottom-0">
       <div className="w-4/6 mx-auto h-screen">
@@ -36,20 +63,68 @@ const Register = () => {
             </div>
           </div>
           <div className="bg-gray-800">
-            <form
-              action=""
-              className="flex flex-col w-3/4 mx-auto h-2/3 gap-5 pt-5 text-white"
-            >
-              {IformInput.map((itm) => {
-                // eslint-disable-next-line react/jsx-key
-                return <Input placeholder={itm.placeholder} type={itm.type} />;
-              })}
-
+            <form className=" flex flex-col w-3/4 mx-auto h-2/3 gap-5 pt-5 text-white">
               <input
-                type="submit"
-                className="w-full bg-blue-500 text-white h-14"
-                placeholder="REGISTER"
-              />
+                type="text"
+                defaultValue={"eve.holt@reqres.in"}
+                placeholder={IformInput[0].placeholder}
+                {...register("email", {})}
+                className="focus:outline-none bg-opacity-0 bg-gray-600 h-16 pl-5 border-b-4  border-b-white w-full "
+              />{" "}
+              <div className="w-full flex bg-opacity-0 bg-gray-600 border-b-4  border-b-white">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  defaultValue={"cityslicka"}
+                  placeholder="cityslicka"
+                  {...register("password", {
+                    required: true,
+                    minLength: 5,
+                    maxLength: 20,
+                  })}
+                  onChange={handleChange}
+                  className="focus:outline-none bg-opacity-0 w-5/6 bg-gray-600 h-16 pl-5 "
+                />{" "}
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="flex justify-center items-center w-1/6"
+                >
+                  {!showPassword ? (
+                    <Image src={pass_hidden} alt="" width={20} height={20} />
+                  ) : (
+                    <Image src={pass_show} alt="" width={20} height={20} />
+                  )}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <div className="flex gap-2">
+                  <input
+                    type="checkbox"
+                    name=""
+                    className="border border-pink-400"
+                    id=""
+                  />
+                  <p className="text-green-300">Remember Credentials</p>
+                </div>
+
+                <Link href="" className="text-pink-400">
+                  Forgot password ?
+                </Link>
+              </div>
+              <div className="flex gap-2">
+                <input type="checkbox" value="" />
+                <p>
+                  I hereby confirm that I have read all the Terms & Conditions
+                  carefully and I agree with the same.
+                </p>
+              </div>
+              <button
+                onClick={handleSubmit(onSubmit)}
+                className="w-full bg-black font-bold text-white h-14"
+              >
+                <span className="bg-opacity-5 mr-2">{loading && <Spin />}</span>
+                Register
+              </button>
             </form>
             <div className="z-50 mt-10 flex flex-col gap-4">
               <h1 className="font-thin text-lg w-full text-center text-white">
@@ -62,7 +137,7 @@ const Register = () => {
                 </span>
               </div>
               <ul className="h-1/2 mx-auto flex justify-around gap-4">
-                {Images.map((itm) => {
+                {Images.map((itm: StaticImageData) => {
                   // eslint-disable-next-line react/jsx-key
                   return <ItemLink image={itm} />;
                 })}

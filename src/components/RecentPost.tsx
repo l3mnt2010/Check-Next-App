@@ -1,11 +1,6 @@
-import { StaticImageData } from "next/image";
+import { Recent } from "@/interface/interface";
 import Image from "next/image";
 import React from "react";
-
-interface Recent {
-  img: StaticImageData;
-  text: string;
-}
 
 const RecentsPost: React.FC<Recent> = (props) => {
   return (

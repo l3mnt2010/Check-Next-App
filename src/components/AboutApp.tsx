@@ -1,23 +1,9 @@
 import Image from "next/image";
 import About from "../components/About";
 import android from "../assets/images/android-smartphone-free-mockup 1.png";
+import { review } from "@/item.global";
 
 const AboutApp: React.FC<any> = () => {
-  const review = [
-    {
-      title: "Creative design",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      title: "Easy to use",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      title: "Best user experince",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-  ];
-
   return (
     <div className="left_register w-5/6 h-full mx-auto my-16 shadow-2xl sm:w-full px-10 sm:pl-52">
       <div className="w-full flex flex-col sm:w-2/3 sm:flex sm:flex-row sm:gap-32">

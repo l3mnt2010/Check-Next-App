@@ -2,15 +2,8 @@ import React from "react";
 import facebook from "../../public/images/image 2.png";
 import instargram from "../../public/images/image 3.png";
 import twitter from "../../public/images/image 4.png";
-
-import Image, { StaticImageData } from "next/image";
-interface Team {
-  avatar: StaticImageData;
-  name: string;
-  job: string;
-  about: string;
-}
-
+import Image from "next/image";
+import { Team } from "@/interface/interface";
 export const logo = [facebook, instargram, twitter];
 
 const TeamMember: React.FC<Team> = (props) => {

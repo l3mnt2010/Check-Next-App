@@ -3,7 +3,6 @@ import { Add, Data } from "@/interface/interface";
 import { useAppDispatch, RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { ErrorMessage } from "@hookform/error-message";
-import { addUser } from "@/redux/contact.slice";
 import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 import { showToastMessage } from "@/toastify/toastify.global";
@@ -17,9 +16,8 @@ export default function AddContact() {
     handleSubmit,
     formState: { errors },
   } = useForm<Add>();
-  const onSubmit: SubmitHandler<Add> = async (data) => {
+  const onSubmit: SubmitHandler<Add> = (data) => {
     console.log("hihihi", data);
-    await dispatch(addUser(data));
     showToastMessage("success", "Thành công");
     router.push("/");
   };

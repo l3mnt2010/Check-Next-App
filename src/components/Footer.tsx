@@ -3,6 +3,7 @@ import line from "../assets/images/Line 4.png";
 import copyright from "../assets/images/copyright-line.png";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 const Footer = () => {
   return (
     <div className="w-full bg-BG_Footer text-white pb-10">
@@ -27,17 +28,15 @@ const Footer = () => {
             ))}
           </div>
         </div>
-
         <div className="w-full flex flex-col gap-5">
           <h1 className="w-full text-left uppercase font-bold text-xl">
             quick link
           </h1>
-
           <div className="w-full text-left flex flex-col underline gap-1">
-            <a href="">About</a>
-            <a href="">Features</a>
-            <a href="">Screenshot</a>
-            <a href="">Blog</a>
+            <Link href="">About</Link>
+            <Link href="">Features</Link>
+            <Link href="">Screenshot</Link>
+            <Link href="">Blog</Link>
           </div>
         </div>
         <div className="w-full">

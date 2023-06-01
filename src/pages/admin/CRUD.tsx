@@ -1,15 +1,17 @@
 import React from "react";
 import SideBarAdmin from "@/components/SideBarAdmin";
 import Home from "@/components/dasboard";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import NotFound from "@/components/adminnotfound";
 
 const CRUD = () => {
-  const token = useSelector((state: RootState) => state.token.token);
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
   return (
     <>
       {" "}
-      {token != "" && (
+      {token === null ? (
+        <NotFound />
+      ) : (
         <div className="flex">
           <div className="w-1/6 p-0">
             <SideBarAdmin />

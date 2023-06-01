@@ -15,9 +15,8 @@ const Menus = () => {
   const [native, setNative] = useState(true);
   const [bold, isBold] = useState(false);
   const [nativeOption, setNativeOption] = useState(true);
-  const token = useSelector((state: RootState) => state.token.token.token);
-  // const token = localStorage.getItem("token");
-  const email = useSelector((state: RootState) => state.information.email);
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const isBolds = () => {
     isBold(false);
@@ -62,18 +61,12 @@ const Menus = () => {
           Home
         </Link>
         <Link
-          href={"#"}
+          href={"/products"}
           className="hidden sm:block sm:font-bold hover:underline"
         >
-          Features
+          Products
         </Link>
-        {!native && (
-          <Menu
-            onClose={() => setNative(true)}
-            onBold={isBolds}
-            notBold={notBolds}
-          />
-        )}
+        {!native && <Menu onCloses={() => setNative(true)} onBolds={isBolds} />}
         <Image alt="" className="w-24 ml-3" src={logos} />
         <Link
           href={"#"}
@@ -102,7 +95,7 @@ const Menus = () => {
             }}
             className="relative w-auto font-bold text-white h-full rounded-lg px-1 py-1 my-2 bg-blue ring-inherit transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 mr-3"
           >
-            Xin chào {email}
+            Xin chào
           </button>
         )}
         {!nativeOption && (

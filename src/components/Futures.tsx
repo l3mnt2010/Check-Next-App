@@ -1,11 +1,6 @@
-import Image, { StaticImageData } from "next/image";
+import { Features } from "@/interface/interface";
+import Image from "next/image";
 import React from "react";
-
-interface Features {
-  img: StaticImageData;
-  title: string;
-  text: string;
-}
 
 const Futures: React.FC<Features> = (props) => {
   return (

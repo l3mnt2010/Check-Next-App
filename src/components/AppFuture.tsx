@@ -1,49 +1,8 @@
 import Future from "../components/Futures";
-import comment from "../assets/images/comment.png";
-import browser from "../assets/images/browser.png";
-import vector from "../assets/images/vector.png";
-import cellphone from "../assets/images/cell-phone.png";
-import eye from "../assets/images/eye-scanner 1.png";
-import male_textmarker from "../assets/images/male-telemarketer.png";
-import Futures from "../components/Futures";
 import app from "../assets/images/App.png";
 import Image from "next/image";
-
-const freechat = {
-  title: "Full free chat",
-  text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  img: comment,
-};
-const male_call = {
-  title: "24/7 support by real pepole",
-  text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  img: male_textmarker,
-};
-const review = [
-  {
-    title: "Unlimiter features",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    img: browser,
-  },
-  {
-    title: "Awsome ui design",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    img: vector,
-  },
-];
-
-const reviews = [
-  {
-    title: "Riso & androind version",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    img: cellphone,
-  },
-  {
-    title: "Retina ready greaphics",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    img: eye,
-  },
-];
+import Futures from "../components/Futures";
+import { freechat, male_call, reviewer, reviews } from "@/item.global";
 
 const AppFuture = () => {
   return (
@@ -66,7 +25,7 @@ const AppFuture = () => {
       </div>
       <div className="w-full block sm:w-5/6 mx-auto sm:flex">
         <div className="flex flex-col gap-40">
-          {review.map((freechat) => (
+          {reviewer.map((freechat) => (
             // eslint-disable-next-line react/jsx-key
             <Future
               img={freechat.img}

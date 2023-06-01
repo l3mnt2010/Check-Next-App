@@ -3,10 +3,10 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import Success from "../../../public/images/Group 33604.png";
 import Logo from "../../../public/images/Frame 453.png";
+import Link from "next/link";
 
 const success = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const router = useRouter();
   return (
     <div className="register bg-black w-screen h-screen pt-5 fixed top-0 left-0 right-0 bottom-0">
       <div className="w-4/6 mx-auto h-screen">
@@ -24,7 +24,7 @@ const success = () => {
               </p>
             </div>
           </div>
-          <div className="bg-gray-800 flex flex-col gap-5 p-5">
+          <div className="bg-gray-800 flex flex-col gap-8 p-5">
             <div className="w-full text-left flex gap-5 ml-5 my-5">
               <Image src={Logo} alt={""} width={35} height={35} />
               <h1 className="font-thin text-5xl text-white">Technology Hunt</h1>
@@ -44,13 +44,11 @@ const success = () => {
               </p>
               <div className="w-1/5 mx-auto mt-5">
                 {" "}
-                <button
-                  onClick={() => {
-                    router.push("/");
-                  }}
-                  className="w-28 rounded-xl h-12 bg-blue-700 text-white"
-                >
-                  Back To Home
+                <button className="rounded-xl bg-blue px-1 py-0 text-white font-bold">
+                  {" "}
+                  <Link className="w-full" href={"/"}>
+                    Back To Home
+                  </Link>
                 </button>
               </div>
             </div>

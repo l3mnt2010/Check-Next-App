@@ -1,11 +1,6 @@
-import Image, { StaticImageData } from "next/image";
+import { Reactangles } from "@/interface/interface";
+import Image from "next/image";
 import React from "react";
-
-interface Reactangles {
-  img: StaticImageData;
-  number: number;
-  interact: string;
-}
 
 const Reactangle: React.FC<Reactangles> = (props) => {
   return (

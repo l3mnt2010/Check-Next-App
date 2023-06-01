@@ -4,42 +4,38 @@ import { useState } from "react";
 import { useAppDispatch, RootState } from "@/redux/store";
 import Loading from "@/components/Loading";
 import { useEffect } from "react";
-import {
-  deleteUsers,
-  getPerPage,
-  getUsers,
-  getUsersSort,
-} from "@/redux/contact.slice";
+import { getUsers } from "@/redux/contact.slice";
 import DeleteModal from "@/components/ModalCustom";
 import { useRouter } from "next/router";
 import Paginate from "@/components/Paginate";
 import { SortAscendingOutlined } from "@ant-design/icons";
 import { showToastMessage } from "@/toastify/toastify.global";
-const titles = ["id", "Email", "First Name", "Last Name", "Avatar"];
+import { deleteUsers } from "@/redux/getuser.slice";
+import { titles } from "@/item.global";
 
 export default function Home() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [id, setId] = useState<number>(0);
   const [page, setPage] = useState(1);
-  const data = useSelector((state: RootState) => state.data);
+  const data = useSelector((state: RootState) => state.get.data);
   const dispatch = useAppDispatch();
   useEffect(() => {
     const promise = dispatch(getUsers(page));
-    dispatch(getPerPage(page));
+    dispatch(getUsers(page));
     return () => {
       promise.abort();
     };
   }, [dispatch]);
 
   const deleteReview = async (id: number) => {
-    await dispatch(deleteUsers(id));
+    // await dispatch(deleteUsers(id));
     showToastMessage("success", "Thành công");
     setIsModalOpen(false);
   };
 
   const sortById = async (id: number) => {
-    await dispatch(getUsersSort(id));
+    // await dispatch(getUsersSort(id));
     showToastMessage("success", "Thành công");
   };
   return (
@@ -105,6 +101,7 @@ export default function Home() {
                       className="bg-red-500 font-bold text-white w-2/3 h-10"
                       onClick={() => {
                         setId(item.id);
+                        dispatch(deleteUsers(id));
                         setIsModalOpen(true);
                       }}
                     >

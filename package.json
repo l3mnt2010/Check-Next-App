@@ -33,5 +33,9 @@
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4",
     "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "css-loader": "^6.8.1",
+    "style-loader": "^3.3.3"
   }
 }

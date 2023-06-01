@@ -1,14 +1,12 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Add, Data } from "@/interface/interface";
+import { Add } from "@/interface/interface";
 import { useAppDispatch, RootState } from "@/redux/store";
-import { useSelector } from "react-redux";
 import { ErrorMessage } from "@hookform/error-message";
 import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 import { showToastMessage } from "@/toastify/toastify.global";
 
 export default function AddContact() {
-  const data = useSelector((state: RootState) => state);
   const router = useRouter();
   const dispatch = useAppDispatch();
   const {

@@ -50,21 +50,21 @@ const authService = new AuthService();
 //   }
 // );
 
-// export const addUser = createAsyncThunk(
-//   "blog/addUser",
-//   async (body: Add, thunkAPI) => {
-//     try {
-//       const response = await API.post<Data>("/user", body);
-//       return response.data;
-//     } catch (error: any) {
-//       if (error.name === "AxiosError") {
-//         console.log(error);
-//         return thunkAPI.rejectWithValue(error.response.data);
-//       }
-//       throw error;
-//     }
-//   }
-// );
+export const addUser = createAsyncThunk(
+  "blog/addUser",
+  async (body: Add, thunkAPI) => {
+    try {
+      const response = await API.post<Data>("/user", body);
+      return response.data;
+    } catch (error: any) {
+      if (error.name === "AxiosError") {
+        console.log(error);
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
+    }
+  }
+);
 
 // export const loginUser = createAsyncThunk<void, LoginCredentials>(
 //   "auth/loginUser",

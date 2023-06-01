@@ -18,7 +18,7 @@ const OurRecentBlog = () => {
       {token !== null && <Menus />}
       {token === null && (
         <div>
-          <div className="flex sm:flex sm:justify-around pt-10">
+          <div className="flex justify-around sm:flex sm:justify-around pt-10">
             <div className="flex">
               <div className="flex items-center">
                 <Image src={Logo} alt={""} width={40} height={40} />

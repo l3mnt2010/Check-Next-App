@@ -13,7 +13,7 @@ const CardClothes: React.FC<AboutCard> = (props) => {
     router.push(`/products/${id}`);
   };
   return (
-    <div className="w-32 sm:w-52  h-fit_content p-5 border shadow-2xl flex flex-col justify-between">
+    <div className="w-32 h-96 sm:w-52 sm:h-fit_content p-5 border shadow-2xl flex flex-col justify-between">
       <div className="relative">
         <div className="w-5/6 mx-auto shadow-sm flex text-center">
           <img
@@ -30,7 +30,7 @@ const CardClothes: React.FC<AboutCard> = (props) => {
           New
         </div>
       </div>
-      <div className="w-full text-left font-thin hover:animate-bounce">
+      <div className="w-full text-left text-xs sm:text-sm font-thin hover:animate-bounce">
         {title}
       </div>
       <div className="font-bold shadow-sm bg-gray-50"> £{price}</div>

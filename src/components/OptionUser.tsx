@@ -20,7 +20,7 @@ const OptionUser: React.FC<Menus> = (props) => {
   };
 
   return (
-    <div className="z-50 w-max sm:p-5 absolute top-16 left-5 font-bold text-sm sm:right-0 lg:right-0 grid grid-rows-4 gap-y-5 shadow-2xl bg-white p-5 hover:underline">
+    <div className="z-50 w-max sm:p-5 absolute top-16 -left-3 font-bold text-sm sm:right-1 lg:right-2 grid grid-rows-4 gap-y-5 shadow-2xl bg-white p-5 hover:underline">
       <Image
         alt=""
         className="absolute right-1 w-4 h-4 "

@@ -35,8 +35,10 @@ const Log_in = () => {
       router.push("/");
     } else {
       setPassword("");
+      showToastMessage("", "Thất bại !!!");
+      router.push("/");
     }
-  }, [dispatch]);
+  }, [dispatch, onSubmit]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);

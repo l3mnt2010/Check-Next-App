@@ -26,6 +26,12 @@ const Log_in = () => {
   const onSubmit: SubmitHandler<LoginCredentials> = async (data, e: any) => {
     e.preventDefault();
     dispatch(loginUser(data));
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    if (token != null) {
+      showToastMessage("success", "Thành công !!!");
+      router.push("/");
+    }
   };
   useEffect(() => {
     const token =
@@ -35,33 +41,31 @@ const Log_in = () => {
       router.push("/");
     } else {
       setPassword("");
-      showToastMessage("", "Thất bại !!!");
-      router.push("/");
     }
-  }, [dispatch, onSubmit]);
+  }, [dispatch]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
 
   return (
-    <div className="register bg-black w-screen h-screen pt-5 fixed top-0 left-0 right-0 bottom-0">
-      <div className="w-4/6 mx-auto h-screen">
-        <h1 className="font-thin text-6xl text-white text-center w-full py-11">
+    <div className="register bg-black w-screen h-screen pt-5 sm:fixed sm:top-0 sm:left-0 sm:right-0 sm:bottom-0">
+      <div className="sm:w-4/6 mx-auto h-screen">
+        <h1 className="font-thin text-xl sm:text-6xl text-white text-center w-full py-11">
           WELL COME BACK
         </h1>
-        <div className="w-full shadow-2xl grid grid-cols-2 h-1/2">
-          <div className="left_login flex justify-center items-center">
+        <div className="w-full shadow-2xl sm:grid sm:grid-cols-2 h-fit_content sm:h-1/2">
+          <div className="hidden w-screen h-fit_content sm:w-auto sm:h-full left_login sm:flex sm:justify-center sm:items-center">
             <div className="text-white flex flex-col gap-5">
               <h1 className="w-full text-center font-extrabold text-5xl">
                 OFFICIAL
               </h1>
-              <p className="font-thin">
+              <p className="font-thin text-xs sm:text-lg">
                 Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit
               </p>
             </div>
           </div>
-          <div className="bg-gray-800">
+          <div className="bg-gray-800 py-5">
             <form className=" flex flex-col w-3/4 mx-auto h-2/3 gap-5 pt-5 text-white">
               <input
                 type="text"
@@ -150,7 +154,7 @@ const Log_in = () => {
           </div>
         </div>
         <div className="w-full mt-48">
-          <p className="w-full text-center font-thin text-white text-lg">
+          <p className="hidden sm:block w-full text-center font-thin text-white text-lg">
             © 2023 Official Register Form. All Rights Reserved | Design by
             Truong Ngoc Lam
           </p>

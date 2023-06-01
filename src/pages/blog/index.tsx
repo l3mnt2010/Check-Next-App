@@ -73,9 +73,14 @@ const Blogs = () => {
       <Menus />
       <div className="w-5/6 mx-auto flex gap-5 ">
         <div className="letf-blog w-2/3 ">
-          {blog.map((itm) => (
+          {blog.map((itm, index) => (
             // eslint-disable-next-line react/jsx-key
-            <BlogPost img={itm.img} title={itm.title} text={about} />
+            <BlogPost
+              img={itm.img}
+              title={itm.title}
+              text={about}
+              key={index}
+            />
           ))}
         </div>
         <div className="w-1/3 my-10">
@@ -87,9 +92,9 @@ const Blogs = () => {
           <h1 className="w-full text-letf uppercase font-bold text-xl">
             Recent Post
           </h1>
-          {blog_recent.map((itm) => (
+          {blog_recent.map((itm, index) => (
             // eslint-disable-next-line react/jsx-key
-            <RecentPosts img={itm.img} text={itm.title} />
+            <RecentPosts img={itm.img} text={itm.title} key={index} />
           ))}
           <Image alt="" src={line} className="w-2/3 mx-auto my-10" />
           <div className="w-full">

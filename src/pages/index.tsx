@@ -18,17 +18,17 @@ const OurRecentBlog = () => {
       {token !== null && <Menus />}
       {token === null && (
         <div>
-          <div className="flex justify-around pt-10">
+          <div className="flex sm:flex sm:justify-around pt-10">
             <div className="flex">
               <div className="flex items-center">
                 <Image src={Logo} alt={""} width={40} height={40} />
               </div>
-              <div className="font-extralight text-6xl text-pink-400">
+              <div className="font-extralight text-xl sm:text-6xl text-pink-400">
                 HUNT TECHNOLOGY
               </div>
             </div>
 
-            <div className="flex justify-center items-center gap-5">
+            <div className="flex justify-center items-center gap-1 sm:gap-5">
               <div>
                 <Link
                   href={"/login"}

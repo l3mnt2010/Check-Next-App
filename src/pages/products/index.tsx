@@ -21,7 +21,7 @@ const Products = () => {
       <div className="w-full text-center font-bold text-xl mb-5">
         YOU MIGHT ALSO LIKE
       </div>
-      <div className="w-5/6 mx-auto grid grid-cols-5 gap-5">
+      <div className="w-full sm:w-5/6 gird grid-cols-3 mx-auto sm:grid sm:grid-cols-5 gap-5">
         {data_product.map((itm) => {
           return (
             <CardClothes
